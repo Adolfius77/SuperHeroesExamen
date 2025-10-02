@@ -93,19 +93,18 @@ public class superHeroeDAO implements ISuperHeroeDAOO {
     }
 
     @Override
-    public List<superHeroe> listar() {
-        EntityManager em = JpaUtil.getEntityManger();
-        try {
-            return em.createNamedQuery("SELECT s FROM superHeroe s", superHeroe.class).getResultList();
-        } catch (Exception ex) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            throw ex;
-
-        } finally {
-            em.close();
+public List<superHeroe> listar() {
+    EntityManager em = JpaUtil.getEntityManger();
+    try {
+        return em.createQuery("SELECT s FROM superHeroe s", superHeroe.class).getResultList();
+    } catch (Exception ex) {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
         }
-    }
+        throw ex;
 
+    } finally {
+        em.close();
+    }
+}
 }
